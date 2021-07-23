@@ -1,0 +1,12 @@
+{
+  "project_name": "Flask Bolierplate",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "Initial Flask project R202 structure",
+  "version": "0.1.0",
+
+  "secret_key": "changethis",
+  "mongo_db_name": "changethis",
+
+  "docker_image_prefix": "{{ cookiecutter.project_slug }}",
+  "docker_image": "{{cookiecutter.docker_image_prefix}}-image"
+}
