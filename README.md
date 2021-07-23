@@ -2,7 +2,7 @@
 Flask Project template for R202 lab
 
 ### How to use it?
-First you need to install cookkiecutter and poetry
+First you need to install cookiecutter and poetry
 ```
 $ sudo apt install cookkiecutter poetry
 ```
@@ -25,4 +25,4 @@ Run the project
 
 #### More Information
 - Poetry: https://python-poetry.org/docs/
-- Cookkiecutter: https://cookiecutter.readthedocs.io/en/1.7.2/
+- Cookiecutter: https://cookiecutter.readthedocs.io/en/1.7.2/
