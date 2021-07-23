@@ -11,8 +11,6 @@ COPY . /app
 WORKDIR /app
 
 RUN poetry install --no-dev
-RUN pip3 install flask uwsgi
-RUN python3 setup.py develop
 
 RUN npm install --prefix {{ cookiecutter.project_slug }}/web/static
 # RUN cd /app/{{ cookiecutter.project_slug }}/web/static/brython; \
