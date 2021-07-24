@@ -4,8 +4,8 @@ from flask import Flask
 
 from .. import models
 from . import views
+from . import acl
 
-# from . import caches
 app = Flask(__name__)
 
 
@@ -17,7 +17,7 @@ def create_app():
 
     models.init_db(app)
     views.register_blueprint(app)
-    # caches.init_cache(app)
+    acl.init_acl(app)
 
     return app
 
