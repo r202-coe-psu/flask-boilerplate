@@ -15,7 +15,7 @@ source ./env/bin/activate
 ```
 Use flask-boilerplate and install python dependencies packages:
 ```
-cookiecutter https://github.com/r202-coe-psu/flask-boilerplate.git
+cookiecutter https://github.com/r202-coe-psu/r202-flask-boilerplate.git
 cd <project name>
 poetry install
 ```
