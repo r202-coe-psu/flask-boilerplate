@@ -4,7 +4,8 @@ Flask Project template for R202 lab
 ### How to use it?
 First you need to install cookiecutter and poetry
 ```
-$ sudo apt install cookiecutter poetry
+$ sudo apt install cookiecutter
+$ pip install --user poetry
 ```
 Go to the directory where you want to create the project then create the virtual environment
 ```
