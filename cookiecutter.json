@@ -1,7 +1,6 @@
 {
   "project_name": "Flask Bolierplate",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-  "project_short_description": "Initial Flask project R202 structure",
   "version": "0.1.0",
 
   "secret_key": "changethis",
