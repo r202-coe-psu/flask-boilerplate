@@ -14,9 +14,7 @@ def get_subblueprints(views=[]):
 
 
 def register_blueprint(app):
-    blueprints = get_subblueprints(
-        [sites]
-    )
+    blueprints = get_subblueprints([sites])
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
