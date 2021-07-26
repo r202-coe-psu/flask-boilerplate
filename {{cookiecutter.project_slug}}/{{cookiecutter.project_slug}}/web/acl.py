@@ -20,7 +20,6 @@ def init_acl(app):
 
 def roles_requred(roles):
     def wrapper(func):
-        @wraps(func)
         def wrapped(*args, **kwargs):
             for role in roles:
                 if role in current_user.roles:
