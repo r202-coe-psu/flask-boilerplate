@@ -4,7 +4,7 @@ from flask_principal import Principal, identity_loaded, Identity
 from werkzeug.exceptions import Forbidden
 from . import models
 
-from functools import warps
+from functools import wraps
 
 login_manager = LoginManager()
 principals = Principal()
@@ -20,6 +20,7 @@ def init_acl(app):
 
 def roles_requred(roles):
     def wrapper(func):
+        @wraps(func)
         def wrapped(*args, **kwargs):
             for role in roles:
                 if role in current_user.roles:
