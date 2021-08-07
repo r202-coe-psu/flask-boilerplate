@@ -15,4 +15,4 @@ stages:
 flake8:
   stage: Code Analysis
   script:
-    - flake8 --max-line-length=120 {{cookiecutter.project_slug}}/*
+    - flake8 --max-line-length=120 {{cookiecutter.project_slug}}/*.py
