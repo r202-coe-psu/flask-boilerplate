@@ -1,6 +1,6 @@
 from flask import redirect, url_for, request
 from flask_login import current_user, LoginManager, login_url
-from flask_principal import Principal, identity_loaded, Identity
+from flask_principal import Principal, identity_loaded, Identity, UserNeed, RoleNeed
 from werkzeug.exceptions import Forbidden
 from . import models
 
