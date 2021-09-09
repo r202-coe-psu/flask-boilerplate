@@ -1,0 +1,10 @@
+Flask
+flask-mongoengine
+werkzeug
+flask-login
+flask-principal
+watchdog
+
+# dev
+flake8
+black

@@ -1,5 +1,6 @@
 {
   "project_name": "Flask Bolierplate",
+  "package_name": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "version": "0.1.0",
 
