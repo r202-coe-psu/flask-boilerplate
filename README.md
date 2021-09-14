@@ -2,16 +2,22 @@
 Flask Project template for R202 lab
 
 ### How to use it?
-Use flask-boilerplate:
+First you need to install cookiecutter and poetry
+```
+$ sudo apt install cookiecutter
+$ pip install --user poetry
+```
+Go to the directory where you want to create the project then create the virtual environment
+```
+cd my-awesome-flask-project
+python3 -m venv env
+source ./env/bin/activate
+```
+Use flask-boilerplate and install python dependencies packages:
 ```
 cookiecutter https://github.com/r202-coe-psu/r202-flask-boilerplate.git
 cd <project name>
-```
-Create virtual env and install dependencies:
-```
-python3 -m venv venv
-source ./venv/bin/activate
-python3 setup.py develop
+poetry install
 ```
 Run the project
 ```
