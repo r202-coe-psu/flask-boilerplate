@@ -10,10 +10,16 @@ ENV LC_ALL th_TH.UTF-8
 COPY . /app
 WORKDIR /app
 
-RUN pip3 install poetry
-RUN poetry install --no-dev
-
 RUN npm install --prefix {{ cookiecutter.project_slug }}/web/static
+
+ENV {{ cookiecutter.project_slug.upper() }}_SETTINGS=/app/{{ cookiecutter.project_slug }}-production.cfg
+
+RUN ln -s $(command -v python3) /usr/bin/python
+RUN pip3 install poetry
+RUN poetry config virtualenvs.create false && poetry install --no-interaction
+ENV PYTHONPATH $(pwd):/usr/lib/python3.9/site-packages:$PYTHONPATH
+
+# For brython
 # RUN cd /app/{{ cookiecutter.project_slug }}/web/static/brython; \
 #     for i in $(ls -d */); \
 #     do \
@@ -22,5 +28,3 @@ RUN npm install --prefix {{ cookiecutter.project_slug }}/web/static
 #     mv *.brython.js ..; \
 #     cd ..; \
 #     done
-
-ENV {{ cookiecutter.project_slug.upper() }}_SETTINGS=/app/{{ cookiecutter.project_slug }}-production.cfg
