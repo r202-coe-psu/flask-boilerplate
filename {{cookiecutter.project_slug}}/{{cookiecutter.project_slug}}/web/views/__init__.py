@@ -1,4 +1,10 @@
 from . import sites
+import datetime
+
+
+def add_date_url(url):
+    now = datetime.datetime.now()
+    return f'{url}?date={now.strftime("%Y%m%d")}'
 
 
 def get_subblueprints(views=[]):
@@ -14,6 +20,7 @@ def get_subblueprints(views=[]):
 
 
 def register_blueprint(app):
+    app.add_template_filter(add_date_url)
     blueprints = get_subblueprints([sites])
 
     for blueprint in blueprints:
