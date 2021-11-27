@@ -55,5 +55,3 @@ def register_blueprint(app):
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
-
-    print(app.url_map)
