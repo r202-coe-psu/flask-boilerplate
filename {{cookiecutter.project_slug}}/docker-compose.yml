@@ -9,7 +9,10 @@ services:
         restart: always
         networks:
             - default
- 
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"
     web:
         build: .
         image: {{ cookiecutter.project_slug }}-image
