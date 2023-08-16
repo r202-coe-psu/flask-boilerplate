@@ -30,7 +30,7 @@ services:
         environment:
             {{ cookiecutter.project_slug.upper() }}_SETTINGS: /app/{{ cookiecutter.project_slug }}-production.cfg
         command:
-            uwsgi --lazy-apps --ini scripts/{{ cookiecutter.project_slug }}-uwsgi.ini
+            /venv/bin/gunicorn -w 2 --bind 0.0.0.0:9000 "{{ cookiecutter.project_slug }}.web:create_app()"
         logging:
             options:
                 max-size: "10m"
