@@ -1,7 +1,7 @@
 from flask import redirect, url_for, request
 from flask_login import current_user, LoginManager, login_url
-from werkzeug.exceptions import Forbidden
-from . import models
+from werkzeug.exceptions import Forbidden, Unauthorized
+from .. import models
 
 from functools import wraps
 
@@ -11,16 +11,19 @@ login_manager = LoginManager()
 def init_acl(app):
     login_manager.init_app(app)
 
+    @app.errorhandler(401)
+    def unauthorized(e):
+        return Unauthorized()
+
     @app.errorhandler(403)
-    def page_not_found(e):
-        return unauthorized_callback()
+    def forbidden(e):
+        return "You don't have permission."
 
 
 def roles_required(*roles):
     def wrapper(func):
         @wraps(func)
         def wrapped(*args, **kwargs):
-
             if not current_user.is_authenticated:
                 raise Forbidden()
 
@@ -47,5 +50,3 @@ def unauthorized_callback():
         return response
 
     return redirect(url_for("accounts.login"))
-
-
