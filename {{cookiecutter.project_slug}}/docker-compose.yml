@@ -27,8 +27,6 @@ services:
         networks:
             - default
         restart: always
-        environment:
-            {{ cookiecutter.project_slug.upper() }}_SETTINGS: /app/{{ cookiecutter.project_slug }}-production.cfg
         command:
             /venv/bin/gunicorn -w 2 --bind 0.0.0.0:9000 "{{ cookiecutter.project_slug }}.web:create_app()"
         logging:
