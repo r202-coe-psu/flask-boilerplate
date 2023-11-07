@@ -1,3 +1,3 @@
 #!/bin/sh
 
-FLASK_ENV=development {{ cookiecutter.project_slug.upper() }}_SETTINGS=$(pwd)/{{ cookiecutter.project_slug }}-development.cfg DEBUG=1 {{ cookiecutter.project_slug }}-web -H 0.0.0.0 -d
+{{ cookiecutter.project_slug }}-web -H 0.0.0.0 -d

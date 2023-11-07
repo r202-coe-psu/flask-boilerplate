@@ -1,2 +1,0 @@
-MONGODB_DB = "{{ cookiecutter.mongo_db_name }}"
-SECRET_KEY = "{{ cookiecutter.secret_key }}"

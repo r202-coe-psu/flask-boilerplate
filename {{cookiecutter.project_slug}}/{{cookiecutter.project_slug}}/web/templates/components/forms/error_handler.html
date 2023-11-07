@@ -1,0 +1,9 @@
+{% raw %}
+{% macro get_error_messages(errors) %}
+{% if errors %}
+<label class="label">
+  <span class="label-text-alt text-red-600">{{ ', '.join(errors) }}</span>
+</label>
+{% endif %}
+{% endmacro %}
+{% endraw %}

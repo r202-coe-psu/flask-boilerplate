@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source venv/bin/activate
+pip install poetry
+poetry install

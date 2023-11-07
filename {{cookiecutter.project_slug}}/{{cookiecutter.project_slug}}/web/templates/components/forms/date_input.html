@@ -1,0 +1,30 @@
+{% raw %}
+{% import './components/forms/error_handler.html' as eh %}
+
+{% macro DateInput(form, required=False, optionals={}) %}
+<div class="form-control w-full">
+  <label class="label">
+    <span class="label-text">
+      {{ form.label }}
+    </span>
+    {% if required %}<span class="label-text-alt text-error">*</span>{% endif %}
+  </label>
+  <div class="relative w-full">
+    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor" viewBox="0 0 20 20">
+        <path
+          d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+      </svg>
+    </div>
+    {% set style = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary
+    focus:border-primary block w-full pl-10 p-3 disabled:bg-base-300" %}
+    {% set style = "bg-gray-50 border border-error text-error text-sm rounded-lg focus:ring-primary
+    focus:border-primary block w-full pl-10 px-[1rem] disabled:bg-base-300" if form.errors else style %}
+    {{ form(class_=style, required=required, type="text", value=form.data.strftime("%d/%m/%Y") if form.data
+    ,**optionals) }}
+  </div>
+  {{ eh.get_error_messages(form.errors) }}
+</div>
+{% endmacro %}
+{% endraw %}

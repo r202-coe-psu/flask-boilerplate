@@ -1,0 +1,17 @@
+{% raw %}
+{% from 'components/forms/text_input.html' import TextInput %}
+
+<div class="py-5 px-10 border rounded-lg mx-auto shadow-md">
+  <h3 class="font-bold text-lg text-center">
+    Login
+  </h3>
+  <form>
+    {{ login_form.hidden_tag() }}
+    <div class="flex justify-center flex-col gap-3">
+      {{ TextInput(login_form.username) }}
+      {{ TextInput(login_form.password) }}
+      {{ login_form.submit(class_="btn btn-primary") }}
+    </div>
+  </form>
+</div>
+{% endraw %}

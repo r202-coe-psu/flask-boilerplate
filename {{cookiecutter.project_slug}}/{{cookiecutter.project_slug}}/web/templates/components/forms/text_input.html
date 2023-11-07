@@ -1,0 +1,16 @@
+{% raw %}
+{% import './components/forms/error_handler.html' as eh %}
+
+{% macro TextInput(form, required=False, optionals={}) %}
+{% set style = "input input-bordered disabled:bg-base-300 w-full" %}
+{% set style = style + " input-error" if form.errors else style %}
+<div class="form-control w-full">
+  <label class="label">
+    <span class="label-text">{{ form.label }}</span>
+    {% if required %}<span class="label-text-alt text-red-600">*</span>{% endif %}
+  </label>
+  {{form(class_=style, required=required, **optionals )}}
+  {{ eh.get_error_messages(form.errors) }}
+</div>
+{% endmacro %}
+{% endraw %}
