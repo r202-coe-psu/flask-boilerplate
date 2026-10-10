@@ -67,18 +67,16 @@ app_name/
     └── static/             # npm project: Tailwind entry, built app.css
 ```
 
-## Conventions
+## Developer guideline
 
-- **Configuration** is loaded in this order: `default_settings.py` → `.env`
-  (path overridable with `APP_SETTINGS`) → environment variables.
-- **Views:** add `web/views/<feature>.py` with a `module = Blueprint(...)`. It is
-  registered automatically, with no import list to update.
-- **CRUD feature:** `views/<feature>.py` + `forms/<feature>.py` +
-  `templates/<feature>/{index,create_or_edit}.html`.
-- **Authorization:** use `@login_required`, or `@roles_required(["admin"])` from
-  `web/utils/acl.py`.
-- **Background jobs:** write functions in `worker/tasks.py` and enqueue them with
-  `redis_queue.enqueue(tasks.fn, ...)`. Jobs run without a Flask app context.
-- **OAuth login:** list providers in `LOGIN_PROVIDERS` and set
-  `<NAME>_CLIENT_ID`, `<NAME>_CLIENT_SECRET`, and `<NAME>_SERVER_METADATA_URL`.
-  Non-OIDC providers need a mapper in `web/oauth2.py:USERINFO_MAPPERS`.
+Coding conventions (in Thai) live in [`docs/`](docs/README.md). Start with:
+
+- [Routes & CRUD naming](docs/02-routes-crud.md)
+- [Access control (ACL)](docs/03-acl.md)
+- [Full feature scaffold](docs/09-feature-scaffold.md)
+
+AI coding agents read [`AGENTS.md`](AGENTS.md) (`CLAUDE.md` imports it).
+
+**OAuth login:** list providers in `LOGIN_PROVIDERS` and set
+`<NAME>_CLIENT_ID`, `<NAME>_CLIENT_SECRET`, and `<NAME>_SERVER_METADATA_URL`.
+Non-OIDC providers need a mapper in `web/oauth2.py:USERINFO_MAPPERS`.

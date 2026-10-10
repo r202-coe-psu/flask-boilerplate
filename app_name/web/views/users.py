@@ -50,7 +50,7 @@ def create_or_edit(user_id):
     user = models.User()
     form = forms.users.CreateUserForm()
     if user_id:
-        user = models.User.objects.get_or_404(id=user_id)
+        user = models.User.objects.get(id=user_id)
         form = forms.users.EditUserForm(obj=user)
 
     if not form.validate_on_submit():
@@ -82,7 +82,7 @@ def create_or_edit(user_id):
 @module.route("/<user_id>/deactivate", methods=["POST"])
 @roles_required(["admin"])
 def deactivate(user_id):
-    user = models.User.objects.get_or_404(id=user_id)
+    user = models.User.objects.get(id=user_id)
     user.status = "inactive"
     user.updater = current_user._get_current_object()
     user.updated_date = datetime.datetime.now()

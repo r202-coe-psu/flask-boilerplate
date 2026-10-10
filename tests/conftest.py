@@ -2,6 +2,7 @@ import os
 
 import mongomock
 import pytest
+from mongoengine.connection import get_db
 
 # Do not pick up a developer's local .env during tests
 os.environ["APP_SETTINGS"] = os.devnull
@@ -27,7 +28,11 @@ def app():
         }
     )
     yield app
-    models.User.drop_collection()
+
+    # Start every test with an empty database
+    db = get_db()
+    for name in db.list_collection_names():
+        db.drop_collection(name)
 
 
 @pytest.fixture
