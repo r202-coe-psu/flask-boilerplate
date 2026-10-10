@@ -1,0 +1,20 @@
+{
+  "name": "app-name-static",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "tw": "npx @tailwindcss/cli -i ./css/setup.css -o ./css/app.css",
+    "tw:watch": "npx @tailwindcss/cli -i ./css/setup.css -o ./css/app.css --watch",
+    "tw:minify": "npx @tailwindcss/cli -i ./css/setup.css -o ./css/app.css --minify"
+  },
+  "dependencies": {
+    "@phosphor-icons/web": "^2.1.2",
+    "htmx.org": "^1.9.12",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "daisyui": "^5.0.43",
+    "tailwindcss": "^4.1.13"
+  }
+}

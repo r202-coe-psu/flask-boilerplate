@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% from "components/toasts.html" import render_toast %}
+
+{% block body %}
+<div class="drawer lg:drawer-open">
+  <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
+
+  <div class="drawer-content flex flex-col min-h-screen bg-base-100">
+    <div class="navbar bg-base-0 shadow-sm px-4">
+      <div class="navbar-start">
+        {% if current_user.is_authenticated %}
+        <label for="drawer-menu" class="btn btn-ghost btn-square lg:hidden">
+          <i class="ph ph-list text-2xl"></i>
+        </label>
+        {% endif %}
+        <a href="{{ url_for('index.index') }}" class="text-lg font-bold">{{ config.APP_TITLE }}</a>
+      </div>
+      <div class="navbar-end gap-2">
+        {% if current_user.is_authenticated %}
+        <span class="max-sm:hidden text-sm">{{ current_user.get_fullname() }}</span>
+        <form method="post" action="{{ url_for('accounts.logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-primary btn-outline rounded-full px-6 font-normal">ออกจากระบบ</button>
+        </form>
+        {% else %}
+        <a class="btn btn-primary rounded-full px-6 font-normal" href="{{ url_for('accounts.login') }}">เข้าสู่ระบบ</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <main class="flex-1 p-4">
+      {% block back_button %}
+      {% endblock back_button %}
+
+      {% if title_page %}
+      <div class="mb-4">
+        <h1 class="text-xl font-bold">{{ title_page }}</h1>
+        {% if description_page %}
+        <p class="text-sm text-base-content/60">{{ description_page }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% block content %}
+      {% endblock content %}
+    </main>
+
+    {% include "base/footer.html" %}
+  </div>
+
+  {% if current_user.is_authenticated %}
+  {% include "base/sidebar.html" %}
+  {% endif %}
+</div>
+
+{% for category, message in get_flashed_messages(with_categories=true) %}
+{{ render_toast(message, category) }}
+{% endfor %}
+{% endblock body %}

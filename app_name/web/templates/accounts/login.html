@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+{% import "base/html_renderer.html" as renderer %}
+
+{% block title %}เข้าสู่ระบบ | {{ config.APP_TITLE }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+  <div class="card bg-base-0 shadow-xl w-full max-w-md">
+    <div class="card-body">
+      <a href="{{ url_for('index.index') }}" class="flex gap-2 items-center text-sm">
+        <i class="ph ph-arrow-left"></i>
+        กลับสู่หน้าแรก
+      </a>
+      <h2 class="card-title justify-center text-2xl">เข้าสู่ระบบ</h2>
+
+      <form method="post" class="space-y-2">
+        {{ form.csrf_token }}
+        {{ renderer.base_render(form.username, placeholder="กรอกชื่อบัญชีผู้ใช้") }}
+        {{ renderer.base_render(form.password, placeholder="กรอกรหัสผ่าน") }}
+
+        {% if error_msg %}
+        <div role="alert" class="alert alert-error text-white">
+          <i class="ph ph-warning-circle text-xl"></i>
+          <span>{{ error_msg }}</span>
+        </div>
+        {% endif %}
+
+        <button class="btn btn-primary w-full mt-4">เข้าสู่ระบบ</button>
+      </form>
+
+      {% if config.LOGIN_PROVIDERS %}
+      <div class="divider text-sm">หรือ</div>
+      {% for provider in config.LOGIN_PROVIDERS %}
+      <a href="{{ url_for('accounts.login_oauth', name=provider) }}" class="btn btn-outline w-full">
+        <i class="ph ph-{{ 'google-logo' if provider == 'google' else 'sign-in' }} text-lg"></i>
+        เข้าสู่ระบบด้วย {{ provider | title }}
+      </a>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

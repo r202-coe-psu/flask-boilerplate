@@ -1,0 +1,76 @@
+{% extends "base/default_page.html" %}
+{% import "components/paginations.html" as paginations %}
+
+{% set title_page = "จัดการผู้ใช้งาน" %}
+
+{% block content %}
+<div class="card bg-base-0 card-body">
+  <div class="flex flex-col md:flex-row justify-between gap-4">
+    {# HTMX: re-render only the table while typing #}
+    <form action="{{ url_for('users.index') }}" method="get" class="flex gap-2 w-full md:w-96"
+      hx-get="{{ url_for('users.index') }}" hx-target="#users-table" hx-select="#users-table"
+      hx-swap="outerHTML" hx-trigger="input changed delay:400ms from:input, submit" hx-push-url="true">
+      <label class="input w-full">
+        <i class="ph ph-magnifying-glass"></i>
+        {{ form.search(placeholder="ค้นหาชื่อผู้ใช้, ชื่อ-นามสกุล, อีเมล", class_="grow") }}
+      </label>
+    </form>
+    <a href="{{ url_for('users.create_or_edit') }}" class="btn btn-primary">
+      <i class="ph ph-plus"></i>
+      เพิ่มผู้ใช้งาน
+    </a>
+  </div>
+
+  <div id="users-table" class="overflow-x-auto mt-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ชื่อผู้ใช้งาน</th>
+          <th>ชื่อ-นามสกุล</th>
+          <th>บทบาท</th>
+          <th>สถานะ</th>
+          <th>เข้าใช้งานล่าสุด</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users_pagination.items %}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>{{ user.get_fullname() }}</td>
+          <td>
+            {% for role in user.get_display_roles() %}
+            <span class="badge badge-soft badge-primary whitespace-nowrap">{{ role }}</span>
+            {% endfor %}
+          </td>
+          <td>
+            <span class="badge whitespace-nowrap {{ 'badge-success' if user.status == 'active' else 'badge-ghost' }}">
+              {{ user.display_status() }}
+            </span>
+          </td>
+          <td>{{ user.last_login_date | format_thai_datetime }}</td>
+          <td class="flex justify-end gap-1">
+            <a href="{{ url_for('users.create_or_edit', user_id=user.id) }}" class="btn btn-ghost btn-sm">
+              <i class="ph ph-pencil-simple"></i>
+            </a>
+            {% if user.status == 'active' and user.id != current_user.id %}
+            <form method="post" action="{{ url_for('users.deactivate', user_id=user.id) }}"
+              onsubmit="return confirm('ยืนยันการปิดการใช้งานบัญชี {{ user.username }}?')">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="btn btn-ghost btn-sm text-error"><i class="ph ph-user-minus"></i></button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-center text-base-content/60 py-8">ไม่พบผู้ใช้งาน</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {{ paginations.render_pagination(users_pagination, 'users.index', kwargs={'search': search}) }}
+  </div>
+</div>
+{% endblock content %}

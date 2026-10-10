@@ -1,0 +1,71 @@
+services:
+    mongodb:
+        image: mongo:8
+        container_name: app-name-mongodb
+        volumes:
+            - ../deployment/app_name/mongodb/data/db:/data/db
+            - /etc/localtime:/etc/localtime:ro
+        restart: always
+        ports:
+            - 127.0.0.1:27017:27017
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"
+
+    redis:
+        image: redis:7
+        container_name: app-name-redis
+        volumes:
+            - ../deployment/app_name/redis/data:/data
+        restart: always
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"
+
+    web:
+        build: .
+        image: app-name-image
+        container_name: app-name-web
+        volumes:
+            - ../deployment:/deployment
+            - ./.env:/app/.env:ro
+            - /etc/localtime:/etc/localtime:ro
+        ports:
+            - 8080:8080
+        depends_on:
+            - mongodb
+            - redis
+        restart: always
+        environment:
+            APP_SETTINGS: /app/.env
+            MONGODB_HOST: mongodb
+            REDIS_URL: redis://redis:6379
+        command: gunicorn -w 4 --keep-alive 5 --timeout 120 --bind 0.0.0.0:8080 "app_name.web:create_app()"
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "6"
+
+    worker:
+        image: app-name-image
+        container_name: app-name-worker
+        volumes:
+            - ../deployment:/deployment
+            - ./.env:/app/.env:ro
+            - /etc/localtime:/etc/localtime:ro
+        depends_on:
+            - web
+            - mongodb
+            - redis
+        restart: always
+        environment:
+            APP_SETTINGS: /app/.env
+            MONGODB_HOST: mongodb
+            REDIS_URL: redis://redis:6379
+        command: app-worker
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"

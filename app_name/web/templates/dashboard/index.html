@@ -1,0 +1,18 @@
+{% extends "base/default_page.html" %}
+
+{% set title_page = "แดชบอร์ด" %}
+
+{% block content %}
+<div class="stats stats-vertical md:stats-horizontal shadow bg-base-0 w-full">
+  <div class="stat">
+    <div class="stat-figure text-primary"><i class="ph ph-users text-3xl"></i></div>
+    <div class="stat-title">ผู้ใช้งานทั้งหมด</div>
+    <div class="stat-value">{{ summary.total_users | format_number }}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-figure text-success"><i class="ph ph-user-check text-3xl"></i></div>
+    <div class="stat-title">ผู้ใช้งานที่เปิดใช้งาน</div>
+    <div class="stat-value">{{ summary.active_users | format_number }}</div>
+  </div>
+</div>
+{% endblock content %}

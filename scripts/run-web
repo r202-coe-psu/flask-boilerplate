@@ -1,0 +1,2 @@
+#!/bin/sh -e
+poetry run app-web -H 0.0.0.0 -d "$@"

@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap");
+@import "tailwindcss";
+
+/* Templates live outside the npm project, so point Tailwind at them explicitly */
+@source "../../templates";
+
+@plugin "daisyui" {
+  themes: app --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "app";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(96% 0.007 247.896);
+  --color-base-200: #e8e8e8;
+  --color-base-300: oklch(86% 0.022 252.894);
+  --color-base-content: oklch(13% 0.028 261.692);
+  --color-primary: #1C5FDB;
+  --color-primary-content: oklch(98% 0.01 272);
+  --color-secondary: #00B9C3;
+  --color-secondary-content: oklch(98% 0.01 200);
+  --color-accent: oklch(77% 0.152 181.912);
+  --color-accent-content: oklch(38% 0.063 188.416);
+  --color-neutral: oklch(14% 0.005 285.823);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(72% 0.219 149.579);
+  --color-success-content: oklch(37% 0.077 168.94);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(41% 0.112 45.904);
+  --color-error: oklch(57% 0.245 27.325);
+  --color-error-content: oklch(50% 0.213 27.518);
+  --radius-selector: 2rem;
+  --radius-field: 0.25rem;
+  --radius-box: 1rem;
+  --size-selector: 0.28125rem;
+  --size-field: 0.25rem;
+  --border: 1.5px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme inline {
+  --font-sans: "Noto Sans Thai", sans-serif;
+  --color-base-0: #ffffff;
+}
+
+.drawer-menu-active {
+  @apply bg-white text-primary;
+}
+
+.badge {
+  @apply rounded-md;
+}

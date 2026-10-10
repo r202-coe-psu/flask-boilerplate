@@ -1,0 +1,33 @@
+{% extends "base/default_page.html" %}
+{% import "base/html_renderer.html" as renderer %}
+
+{% set title_page = "แก้ไขผู้ใช้งาน" if user.id else "เพิ่มผู้ใช้งาน" %}
+
+{% block back_button %}
+<a href="{{ url_for('users.index') }}" class="btn btn-ghost btn-sm mb-2">
+  <i class="ph ph-arrow-left"></i> กลับ
+</a>
+{% endblock back_button %}
+
+{% block content %}
+<form method="post" class="card bg-base-0 card-body space-y-2 max-w-2xl">
+  {{ form.hidden_tag() }}
+
+  {{ renderer.base_render(form.username) }}
+  {% if form.password %}
+  {{ renderer.base_render(form.password) }}
+  {% endif %}
+  {{ renderer.base_render(form.first_name) }}
+  {{ renderer.base_render(form.last_name) }}
+  {{ renderer.base_render(form.email) }}
+  {{ renderer.render_select_field(form.roles, class_="h-auto") }}
+  {% if form.reset_password %}
+  {{ renderer.base_render(form.reset_password) }}
+  {% endif %}
+
+  <div class="flex justify-end gap-2 pt-4">
+    <a href="{{ url_for('users.index') }}" class="btn">ยกเลิก</a>
+    <button type="submit" class="btn btn-primary">บันทึก</button>
+  </div>
+</form>
+{% endblock content %}

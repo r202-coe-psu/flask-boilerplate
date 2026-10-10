@@ -1,0 +1,19 @@
+{% macro render_toast(message, category) %}
+{% set styles = {
+  "success": ("alert-success", "check-circle"),
+  "error": ("alert-error", "warning-circle"),
+  "warning": ("alert-warning", "hourglass"),
+} %}
+{% set alert_class, icon = styles.get(category, ("alert-info", "info")) %}
+<div class="toast toast-end z-50" data-toast data-timeout="{{ 5000 if category == 'success' else 10000 }}">
+  <div class="alert {{ alert_class }} rounded-3xl text-white text-base">
+    <i class="ph-fill ph-{{ icon }} text-xl"></i>
+    <span>{{ message }}</span>
+  </div>
+</div>
+<script>
+  document.querySelectorAll("[data-toast]").forEach((toast) => {
+    setTimeout(() => $(toast).fadeOut(), Number(toast.dataset.timeout));
+  });
+</script>
+{% endmacro %}
