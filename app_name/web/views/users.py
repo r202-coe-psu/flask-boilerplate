@@ -79,9 +79,9 @@ def create_or_edit(user_id):
     return redirect(url_for("users.index"))
 
 
-@module.route("/<user_id>/deactivate", methods=["POST"])
+@module.route("/<user_id>/delete", methods=["POST"])
 @roles_required(["admin"])
-def deactivate(user_id):
+def delete(user_id):
     user = models.User.objects.get(id=user_id)
     user.status = "inactive"
     user.updater = current_user._get_current_object()

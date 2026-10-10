@@ -29,5 +29,5 @@
 1. **ทุก route ต้องมี `@login_required` หรือ `@roles_required([...])`** ถ้าเป็นหน้า public ต้องเขียน `# public: <เหตุผล>` กำกับไว้ ดู [03-acl.md](03-acl.md)
 2. **ห้ามเปลี่ยนข้อมูลด้วย GET**: create/update/delete ต้องเป็น POST และมี CSRF token
 3. **ตั้งชื่อตาม convention** ทั้ง `views/<plural>.py`, `module = Blueprint("<plural>", ...)` และ `index / view / create_or_edit / delete` ดู [02-routes-crud.md](02-routes-crud.md)
-4. **ไม่ลบข้อมูลจริง** ให้ใช้ soft delete ด้วยการตั้ง `status = "inactive"`
+4. **ไม่ลบข้อมูลจริง** ให้ใช้ soft delete ด้วยการตั้ง `status = "inactive"` และสถานะเปิด/ปิดใช้ได้แค่ `active` / `inactive` ห้ามใช้ `disactive`, `deactive`, `deactivate` ดู [04-models.md](04-models.md)
 5. **ทุก feature ต้องมี test** อย่างน้อยครอบคลุม happy path, กรณีไม่ login และกรณี role ไม่พอ

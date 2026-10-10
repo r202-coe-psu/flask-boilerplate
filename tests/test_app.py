@@ -67,11 +67,11 @@ def test_admin_can_edit_user(admin_client):
     assert user.first_name == "Edited"
 
 
-def test_admin_can_deactivate_user(admin_client):
+def test_admin_can_delete_user(admin_client):
     from app_name import models
 
     user = models.User(username="staff01", roles=["user"]).save()
-    response = admin_client.post(f"/users/{user.id}/deactivate")
+    response = admin_client.post(f"/users/{user.id}/delete")
     assert response.status_code == 302
     user.reload()
     assert user.status == "inactive"

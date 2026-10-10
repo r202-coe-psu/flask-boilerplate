@@ -83,5 +83,6 @@
 - [ ] มี test ขั้นต่ำตาม [07-testing.md](07-testing.md)
 - [ ] ไม่มี secret, `.env`, `print()` สำหรับ debug หรือโค้ดที่ comment ทิ้งไว้
 - [ ] config ใหม่เพิ่มใน `default_settings.py` และ `.env.example` แล้ว
+- [ ] ค่า status เปิด/ปิดใช้ `active` / `inactive` เท่านั้น (ไม่มี `disactive`, `deactive`, `deactivate`)
 - [ ] ถ้าเปลี่ยน schema มี default หรือ migration script สำหรับข้อมูลเดิม
 - [ ] rebuild CSS แล้ว (ถ้าใช้ Tailwind class ใหม่)

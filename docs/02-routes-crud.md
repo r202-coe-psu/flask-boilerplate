@@ -29,7 +29,7 @@
 | GET, POST | `/projects/<project_id>/edit`   | `create_or_edit` | `projects.create_or_edit` | `projects/create_or_edit.html` |
 | POST      | `/projects/<project_id>/delete` | `delete`         | `projects.delete`         | (redirect)                     |
 
-ถ้ามี action อื่นที่ไม่ใช่ CRUD ให้ตั้งเป็น `POST /<feature>/<id>/<verb>` และตั้งชื่อ function เป็น verb นั้น เช่น `POST /users/<user_id>/deactivate` ใช้ function `deactivate`
+ถ้ามี action อื่นที่ไม่ใช่ CRUD ให้ตั้งเป็น `POST /<feature>/<id>/<verb>` และตั้งชื่อ function เป็น verb นั้น เช่น `POST /users/<user_id>/reset-password` ใช้ function `reset_password` (การปิดการใช้งาน record ให้ใช้ `delete` ที่ตั้ง `status = "inactive"` ไม่ต้องสร้าง action แยก ดู [04-models.md](04-models.md))
 
 ### โครงของ view file
 
@@ -138,4 +138,4 @@ project = models.Project.objects.get(id=project_id)
 - [ ] ทุก action ที่เปลี่ยนข้อมูลเป็น POST และมี CSRF token
 - [ ] POST สำเร็จแล้ว flash + redirect
 - [ ] List มี pagination
-- [ ] Delete เป็น soft delete
+- [ ] Delete เป็น soft delete และใช้ค่า `active` / `inactive` เท่านั้น

@@ -23,7 +23,7 @@ poetry run ruff check . && poetry run ruff format --check .
 2. **CRUD naming**: `web/views/<plural>.py` with `module = Blueprint("<plural>", __name__, url_prefix="/<plural-kebab>")`; functions `index`, `view`, `create_or_edit`, `delete`; URL param `<singular>_id`; templates `templates/<plural>/{index,view,create_or_edit}.html`. → `docs/02-routes-crud.md`
 3. Mutations are **POST only** with a CSRF token, then `flash(...)` + `redirect(...)`.
 4. Fetch by id with `Model.objects.get(id=...)`.
-5. **Soft delete** (`status = "inactive"`); set `creator`/`updater`/`updated_date` manually in views.
+5. **Soft delete** (`status = "inactive"`). The on/off status values are **only** `active` / `inactive`; never use `disactive`, `deactive`, or `deactivate`. Set `creator`/`updater`/`updated_date` manually in views.
 6. New models go in `models/<plural>.py` with explicit `meta["collection"]` and must be exported from `models/__init__.py`. → `docs/04-models.md`
 7. Forms: one file per feature in `web/forms/`, registered in `web/forms/__init__.py`; search forms disable CSRF. Do not use `model_form`. → `docs/05-forms-templates.md`
 8. Long-running work goes to `worker/tasks.py` via `redis_queue.enqueue`, passing ids rather than documents. → `docs/06-jobs-cache-config.md`

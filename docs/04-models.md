@@ -47,6 +47,32 @@ updater = me.ReferenceField("User", dbref=True)
 | `updated_date` | แก้ไขล่าสุด | view ทุกครั้งที่ save (**set เอง** ไม่ใช้ `auto_now`) |
 | `updater` | คนแก้ล่าสุด | view ทุกครั้งที่ save |
 
+## ค่าของ `status`: ใช้ `active` คู่กับ `inactive` เท่านั้น
+
+สถานะ "เปิด/ปิดการใช้งาน" มีค่าที่อนุญาตแค่ 2 คำ และเขียนแบบนี้ทุก model ทุกโปรเจกต์:
+
+| ค่า | ความหมาย | label |
+|---|---|---|
+| `active` | ใช้งานอยู่ (ค่า default) | `ใช้งาน` |
+| `inactive` | ปิดการใช้งาน / ถูกลบแบบ soft delete | `ปิดการใช้งาน` |
+
+**ห้ามใช้** `disactive`, `deactive`, `deactivate`, `deactivated` หรือคำอื่นที่หมายถึงสถานะเดียวกัน ทั้งในค่า field, choices, query, test และ template
+
+```python
+# ✅ ถูก
+project.status = "inactive"
+models.Project.objects(status="active")
+
+# ❌ ผิด
+project.status = "disactive"
+project.status = "deactive"
+if user.status == "deactivate": ...
+```
+
+เหตุผล: ถ้าสะกดหลายแบบ query เช่น `objects(status="inactive")` จะหาข้อมูลไม่ครบโดยไม่มี error เตือน และถ้าค่าใน DB ปนกันหลายคำแล้วจะต้องเขียน migration ไล่แก้ทีหลัง
+
+ถ้า domain ต้องมีสถานะอื่นเพิ่ม (เช่น `pending`, `approved`, `back_home`) ให้เพิ่มเป็นค่าใหม่ใน `<MODEL>_STATUS_CHOICES` ได้ แต่ความหมาย "เปิด/ปิดการใช้งาน" ต้องใช้ `active` / `inactive` เสมอ
+
 ## Choices
 
 ประกาศเป็นค่าคงที่ระดับ module ในรูป `(value, label ภาษาไทย)` แล้วตั้งชื่อเป็น `<FIELD>_CHOICES` หรือ `<MODEL>_<FIELD>_CHOICES` ถ้ามีโอกาสชนกับชื่ออื่น
